@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35327.3
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TesseractOCR.Api", "TesseractOCR\TesseractOCR.Api.csproj", "{A339D76F-1C71-43E4-92E4-E5F6D11DF7FC}"
+	ProjectSection(ProjectDependencies) = postProject
+		{085F3874-05CC-468A-BD07-7649B54B0944} = {085F3874-05CC-468A-BD07-7649B54B0944}
+		{14B75FD6-27AF-4D45-97D1-04095BFF3912} = {14B75FD6-27AF-4D45-97D1-04095BFF3912}
+		{5957863F-BA60-4B9E-88E3-C35CB626A299} = {5957863F-BA60-4B9E-88E3-C35CB626A299}
+		{B6031908-8836-465E-A2DB-AE8F1456FA81} = {B6031908-8836-465E-A2DB-AE8F1456FA81}
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TesseractOCR.Application", "TesseractOCR.Application\TesseractOCR.Application.csproj", "{085F3874-05CC-468A-BD07-7649B54B0944}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TesseractOCR.Domain", "TesseractOCR.Domain\TesseractOCR.Domain.csproj", "{14B75FD6-27AF-4D45-97D1-04095BFF3912}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TesseractOCR.Infrastructure", "TesseractOCR.Infrastructure\TesseractOCR.Infrastructure.csproj", "{5957863F-BA60-4B9E-88E3-C35CB626A299}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TesseractOCR.Tests", "TesseractOCR.Tests\TesseractOCR.Tests.csproj", "{B6031908-8836-465E-A2DB-AE8F1456FA81}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A339D76F-1C71-43E4-92E4-E5F6D11DF7FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A339D76F-1C71-43E4-92E4-E5F6D11DF7FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A339D76F-1C71-43E4-92E4-E5F6D11DF7FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A339D76F-1C71-43E4-92E4-E5F6D11DF7FC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{085F3874-05CC-468A-BD07-7649B54B0944}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{085F3874-05CC-468A-BD07-7649B54B0944}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{085F3874-05CC-468A-BD07-7649B54B0944}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{085F3874-05CC-468A-BD07-7649B54B0944}.Release|Any CPU.Build.0 = Release|Any CPU
+		{14B75FD6-27AF-4D45-97D1-04095BFF3912}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{14B75FD6-27AF-4D45-97D1-04095BFF3912}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{14B75FD6-27AF-4D45-97D1-04095BFF3912}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{14B75FD6-27AF-4D45-97D1-04095BFF3912}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5957863F-BA60-4B9E-88E3-C35CB626A299}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5957863F-BA60-4B9E-88E3-C35CB626A299}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5957863F-BA60-4B9E-88E3-C35CB626A299}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5957863F-BA60-4B9E-88E3-C35CB626A299}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B6031908-8836-465E-A2DB-AE8F1456FA81}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B6031908-8836-465E-A2DB-AE8F1456FA81}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B6031908-8836-465E-A2DB-AE8F1456FA81}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B6031908-8836-465E-A2DB-AE8F1456FA81}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0C90BD62-46E9-4D32-A580-E75834A3B1C4}
+	EndGlobalSection
+EndGlobal
