@@ -1,9 +1,8 @@
-﻿using TesseractOCR.Application.Dtos;
+﻿using TesseractOCR.Application.Dtos.Responses;
 
-namespace TesseractOCR.Application.Interfaces
+namespace TesseractOCR.Application.Interfaces;
+
+public interface ITesseractOcrService
 {
-    public interface ITesseractOcrService
-    {
-        Task<TesseractOcrResponse> ProcessImageAsync(Stream imageStream);
-    }
+    Task<TesseractOcrResponse> ProcessImageAsync(string base64File);
 }

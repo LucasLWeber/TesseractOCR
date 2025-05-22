@@ -1,4 +1,4 @@
-﻿using TesseractOCR.Application.Dtos;
+﻿using TesseractOCR.Application.Dtos.Responses;
 using TesseractOCR.Application.Interfaces;
 
 namespace TesseractOCR.Application.Services
