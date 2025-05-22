@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using TesseractOCR.Application.Services;
+using TesseractOCR.Interfaces;
 
 namespace TesseractOCR.Api.Controllers
 {
@@ -8,25 +8,31 @@ namespace TesseractOCR.Api.Controllers
     [ApiController]
     public class TesseractOcrController : ControllerBase
     {
-        private readonly TesseractOcrUseCase _tesseractOcrUseCase;
+        private readonly GetDocumentsFromMongoUseCase _getDocumentsFromMongoUseCase;
 
-        public TesseractOcrController(TesseractOcrUseCase tesseractOcrUseCase)
+        public TesseractOcrController(GetDocumentsFromMongoUseCase getDocumentsFromMongoUseCase)
         {
-            _tesseractOcrUseCase = tesseractOcrUseCase;
+            _getDocumentsFromMongoUseCase = getDocumentsFromMongoUseCase;
         }
 
 
+        [HttpGet]
+        public async Task<IActionResult> GetProcessedImagesFromMongo()
+        {
+            var result = await _getDocumentsFromMongoUseCase.ExecuteAsync();
+            return Ok(new { textGenerated = result });
+        }
+
         [HttpPost]
-        public async Task<IActionResult> processImage(IFormFile formFile)
+        public async Task<IActionResult> SendToQueue(IFormFile formFile, [FromServices] IQueuePublisher sender)
         {
             if (formFile == null || formFile.Length == 0)
             {
                 return BadRequest("Arquivo inválido");
             }
-
             using var stream = formFile.OpenReadStream();
-            var result = await _tesseractOcrUseCase.ExecuteAsync(stream);
-            return Ok(new { textGenerated = result });
+            await sender.PublishAsync(stream);
+            return Ok("Mensagem enviada para fila");
         }
     }
 }

@@ -2,27 +2,30 @@
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
 using TesseractOCR.Application.Interfaces;
-using TesseractOCR.Application.Dtos;
+using TesseractOCR.Application.Dtos.Responses;
 
 namespace TesseractOCR.Infrastructure.Services
 {
     public class TesseractOcrService : ITesseractOcrService
     {
-        public async Task<TesseractOcrResponse> ProcessImageAsync(Stream imageStream)
+        public async Task<TesseractOcrResponse> ProcessImageAsync(string base64Png)
         {
+            byte[] imageBytes = Convert.FromBase64String(base64Png);
+
+            using var memoryStream = new MemoryStream(imageBytes);
+
             var tempPngFile = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName() + ".png");
 
-            using (var pngFile = await Image.LoadAsync<Rgba32>(imageStream))
+            using (var image = await Image.LoadAsync<Rgba32>(memoryStream))
             {
-                await pngFile.SaveAsPngAsync(tempPngFile);
+                await image.SaveAsPngAsync(tempPngFile);
             }
-            
+
             var tessDataPath = Path.Combine(Path.GetDirectoryName(typeof(TesseractOcrService).Assembly.Location)!, "tessdata");
 
             using var engine = new TesseractEngine(tessDataPath, "por", EngineMode.Default);
-            using var img = Pix.LoadFromFile(tempPngFile);
-            using var page = engine.Process(img);
-
+            using var pix = Pix.LoadFromFile(tempPngFile);
+            using var page = engine.Process(pix);
 
             var response = new TesseractOcrResponse
             {
@@ -33,7 +36,6 @@ namespace TesseractOCR.Infrastructure.Services
 
             return response;
         }
-
 
         private List<TesseractOcrWordDto> GetWordsListFromPage(Page page)
         {
