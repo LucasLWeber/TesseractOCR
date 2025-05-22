@@ -16,6 +16,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TesseractOCR.Domain", "Tess
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TesseractOCR.Infrastructure", "TesseractOCR.Infrastructure\TesseractOCR.Infrastructure.csproj", "{5957863F-BA60-4B9E-88E3-C35CB626A299}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TesseractOCR.Tests", "TesseractOCR.Tests\TesseractOCR.Tests.csproj", "{0D818E44-6851-4165-9D49-A37CB35A226A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -38,6 +40,10 @@ Global
 		{5957863F-BA60-4B9E-88E3-C35CB626A299}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5957863F-BA60-4B9E-88E3-C35CB626A299}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5957863F-BA60-4B9E-88E3-C35CB626A299}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D818E44-6851-4165-9D49-A37CB35A226A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D818E44-6851-4165-9D49-A37CB35A226A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D818E44-6851-4165-9D49-A37CB35A226A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D818E44-6851-4165-9D49-A37CB35A226A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

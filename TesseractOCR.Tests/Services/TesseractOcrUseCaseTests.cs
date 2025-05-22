@@ -1,51 +1,47 @@
-﻿//using Moq;
-//using TesseractOCR.Application.Interfaces;
-//using TesseractOCR.Application.Services;
-//using Xunit;
-//using FluentAssertions;
-//using TesseractOCR.Application.Dtos.Responses;
+﻿using Xunit;
+using Moq;
+using Amazon.SQS;
+using Amazon.SQS.Model;
+using Microsoft.Extensions.Options;
+using TesseractOCR.Infrastructure.Config;
+using TesseractOCR.Infrastructure.Services;
+using System.Text;
+using FluentAssertions;
 
-//namespace TesseractOCR.Tests.Services
-//{
-//    public class TesseractOcrUseCaseTests
-//    {
-//        [Fact]
-//        public async Task ExecuteAsync_ShouldReturnValidResponse_WhenImageIsValid()
-//        {
-//            var imagePath = Path.Combine("Data", "A revolução dos bichos.webp");
-//            await using var imageStream = File.OpenRead(imagePath);
+namespace TesseractOCR.Tests.Infrastructure
+{
+    public class SqsQueueSenderTests
+    {
+        [Fact]
+        public async Task PublishAsync_ShouldSendMessageToSqs()
+        {
+            // Arrange
+            var mockSqsClient = new Mock<IAmazonSQS>();
+            var options = Options.Create(new AwsSqsOptions
+            {
+                QueueUrl = "https://sqs.us-east-1.amazonaws.com/123456789012/my-queue"
+            });
 
-//            var mockTesseractOcrService = new Mock<ITesseractOcrService>();
+            var sender = new SqsQueueSender(mockSqsClient.Object, options);
 
-//            mockTesseractOcrService
-//                .Setup(s => s.ProcessImageAsync(It.IsAny<Stream>()))
-//                .ReturnsAsync(new TesseractOcrResponse
-//                {
-//                    FullText = "A revolução dos bichos",
-//                    MeanConfidence = 0.90f,
-//                    Words = new List<TesseractOcrWordDto>
-//                    {
-//                        new TesseractOcrWordDto
-//                        {
-//                            Text = "A",
-//                            Confidence = 93.2f,
-//                            BoundingBox = new BoundingBoxDto
-//                            {
-//                                X1 = 64,
-//                                Y1 = 137,
-//                                X2 = 84,
-//                                Y2 = 158
-//                            }
-//                        }
-//                    }
-//                });
+            var imagePath = Path.Combine("Data", "A revolução dos bichos.webp");
+            await using var imageStream = File.OpenRead(imagePath);
 
-//            var useCase = new TesseractOcrUseCase(mockTesseractOcrService.Object);
+            mockSqsClient
+                .Setup(sqs => sqs.SendMessageAsync(It.IsAny<SendMessageRequest>(), default))
+                .ReturnsAsync(new SendMessageResponse());
 
-//            var result = await useCase.ExecuteAsync(imageStream);
+            // Act
+            await sender.PublishAsync(imageStream);
 
-//            result.FullText.Should().Contain("A revolução dos bichos");
-//            result.MeanConfidence.Should().BeGreaterThan(0.80f);
-//        }
-//    }
-//}
+            // Assert
+            mockSqsClient.Verify(sqs => sqs.SendMessageAsync(
+                It.Is<SendMessageRequest>(req =>
+                    req.QueueUrl == options.Value.QueueUrl &&
+                    !string.IsNullOrWhiteSpace(req.MessageBody)
+                ),
+                default
+            ), Times.Once);
+        }
+    }
+}
